@@ -12,14 +12,12 @@ con_file.close()
 ## Initialize client
 client = ElsClient(config['apikey'])
 
-print("Successfully initialized Elsevier API Client")
-
 ## Initialize doc search object and execute search, retrieving all results
 query = '3d+printing'
 print("Starting query for %s" % query)
 doc_srch = ElsSearch(query, 'scopus')
 doc_srch.execute(client, get_all = False)
-print ("doc_srch has", len(doc_srch.results), "results.")
+print("doc_srch has", len(doc_srch.results), "results.")
 
 dois = []
 for doc in doc_srch.results:
@@ -28,14 +26,11 @@ for doc in doc_srch.results:
     dois.append( num_doi )
     print(num_doi)
 
-for doiquery in dois:
-    ## ScienceDirect (full-text) document example using DOI
-    import pdb; pdb.set_trace()
-    doi_doc = FullDoc(doi = doiquery)
-    if doi_doc.read(client):
-        print ("doi_doc.title: ", doi_doc.title)
-        import pdb; pdb.set_trace()
-        doi_doc.write()   
+for scp_idx in dois:
+    scp_doc = AbsDoc(scp_id = scp_idx)
+    if scp_doc.read(client):
+        print ("scp_doc.title: ", scp_doc.title)
+        scp_doc.write()   
     else:
         print ("Read document failed.")
     
