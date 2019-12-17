@@ -3,6 +3,7 @@ import string
 import nltk
 from nltk.corpus import stopwords
 nltk.download('stopwords')
+nltk.download('punkt')
 from nltk.tokenize import word_tokenize
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import ComplementNB
